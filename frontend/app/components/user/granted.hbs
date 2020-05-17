@@ -1,0 +1,7 @@
+<p>Access Granted.</p>
+{{#if (eq @guest.grant.mode 'LINK')}}
+    <User::Granted::Link @guest={{@guest}}/>
+{{else}}
+    <User::Granted::Text @guest={{@guest}}/>
+{{/if}}
+

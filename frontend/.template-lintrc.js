@@ -1,0 +1,1 @@
+../standards/ember/.template-lintrc.js

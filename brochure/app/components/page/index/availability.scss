@@ -1,0 +1,33 @@
+.domain {
+    display: flex;
+    flex-direction: column;
+
+    .domain-main {
+        display: flex;
+        align-items: center;
+    }
+
+    .character-warning {
+        color: #dc3545;
+    }
+
+    input {
+        margin-right: 0.5rem;
+        text-align: right;
+    }
+}
+
+.claim {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+
+    input {
+        max-width: 40%;
+    }
+
+    button {
+        height: 2.5rem;
+    }
+
+}

@@ -1,0 +1,28 @@
+.component {
+    max-width: 20rem;
+    margin-top: 1rem;
+}
+
+.message-wrapper {
+    padding: 0.5rem;
+    padding-left: 1rem;
+    background-color: lightgrey;
+    border-radius: 5%;
+}
+
+.message-content {
+    font-size: larger;
+    white-space: pre;
+}
+
+.time {
+    font-size: smaller;
+    text-align: right;
+    color: grey;
+}
+
+blockquote.OUT {
+    border-left: 0;
+    border-right: 4px solid var(--focus);
+    text-align: right;
+}

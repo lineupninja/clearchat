@@ -1,0 +1,18 @@
+<p>When you accept a guest to the room they will be shown this address.</p>
+<p>This should be the web address of the event, eg https://meet.jit.si/MyRoom</p>
+<p>Include the 'http' or 'https' bit from the address.</p>
+<div local-class='link-input'>
+    <Input {{did-insert this.validateText}}  {{auto-focus}} @value={{this.grantText}} placeholder='https://example.com' onKeyDown={{this.inputKeyDown}}/>
+    {{#if (gt this.grantText.length 5000)}}
+        <div local-class='length-warning'>
+            {{this.grantText.length}} / 10000
+        </div>
+    {{/if}}
+
+    <LinkTo @route='claim.admin.index'><button type='button' disabled={{not this.grantTextIsValid}}>Set Link</button></LinkTo>
+</div>
+
+<p>
+    Or instead of a link you can 
+    <LinkTo @route='claim.grant.text'>show joining instructions instead</LinkTo>
+</p>

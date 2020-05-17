@@ -1,0 +1,17 @@
+// Wrapper style for admins
+.admin {
+    // No styles applied
+    max-width: 95vw;
+    margin: 20px auto;
+}
+
+// Wrapper style for users
+.user {
+    max-width: 60rem;
+    margin: 20px auto;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+}

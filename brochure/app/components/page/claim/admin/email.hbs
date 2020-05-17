@@ -1,0 +1,5 @@
+<div local-class='email-input'>
+    <Input id='email' @value={{this.adminEmail}} placeholder='me@example.com'/>
+    <button type='button' {{on 'click' (perform this.claim.claimRoom)}} disabled={{not this.adminEmailIsValid}}>Claim My Room</button>
+</div>
+

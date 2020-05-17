@@ -1,0 +1,24 @@
+.grant-modes {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        padding-bottom: 0.75rem;
+    }
+}
+
+.grant-config {
+    margin-left: 1rem;
+}
+
+.modal-buttons {
+    padding-top: 1rem;
+}
+
+.length-warning {
+    font-size: smaller;
+}
+
+.done-button {
+    float: right;
+}

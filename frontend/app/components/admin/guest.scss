@@ -1,0 +1,41 @@
+.guest {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+
+    details {
+        width: 20rem;
+        max-width: 20rem;
+    }
+}
+
+.guest-name {
+    font-weight: bold;
+}
+
+.state-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 19rem;
+}
+
+.summary-container {
+    display: flex;
+    align-items: center;
+
+    svg {
+        height: 1.5rem;
+    }
+
+    .had-unread {
+        svg {
+            color: #1f8dd6;
+        }
+    }
+}
+
+.summary-pending {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

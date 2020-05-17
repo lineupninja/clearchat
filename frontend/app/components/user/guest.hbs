@@ -1,0 +1,29 @@
+<div {{did-insert this.getGuest}} local-class='guest'>
+    <h1>Welcome to {{this.backend.roomId}}</h1>
+    {{#if this.guest}}
+            <p>Hi {{this.guest.name}}.</p>
+            {{#if (eq this.guest.state 'PENDING')}}
+                <User::Pending/>
+            {{else if (eq this.guest.state 'GRANTED')}}
+                <User::Granted @guest={{this.guest}}/>
+            {{else if (eq this.guest.state 'DENIED')}}
+                <User::Denied/>
+            {{/if}}
+            <div local-class='promo'>
+                <hr>
+                <p>ClearChat is a free service. <a href='https://clearchat.cc' target='_blank'>Get Your Own Room Here.</a></p>
+                <PoweredByLineupNinja/>
+            </div>
+    {{else if (eq this.guest null)}}
+        <p>Welcome to the room. To request access enter your name.</p>
+        <div local-class='name-input'>
+            <Input id='room' {{auto-focus}} placeholder='Your name' @value={{this.guestName}} @keyDown={{this.inputKeyPressed}}/>
+            <button type='button' disabled={{not this.guestNameIsValid}} {{on 'click' this.createGuest }}>Request Access</button>
+        </div>
+        <hr>
+        <p local-class='cookie-notice'>Cookie Notice: We use one cookie to make ClearChat work. There are no cookies for advertising and no third party cookies.</p>
+        <p local-class='privacy-policy'><a href='/docs/clearchat_privacy_1_3.pdf' target='_blank'>Privacy Policy</a></p>
+    {{else}}
+        Please Wait...
+    {{/if}}
+</div>

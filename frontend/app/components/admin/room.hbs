@@ -1,0 +1,19 @@
+<div {{did-insert this.getRoomDetails}}>
+    {{#if this.backend.room}}
+        <div local-class='title-and-edit'>
+            <h1>{{this.backend.roomId}} administration</h1>
+            <Admin::ManageRoom @room={{this.backend.room}}/>
+        </div>
+
+    <div local-class='share'>
+        <p>Send this link to your guests:</p>
+        <div local-class='share-link'>
+            <a href={{this.guestLink}} target='_blank' rel='noopener noreferrer'>{{this.guestLink}}</a>
+        </div>
+    </div>
+    {{else}}
+        <p>Loading Room Details</p>
+    {{/if}}
+    <Admin::Guests/>
+    <p><a href='mailto:admin@clearchat.cc'>Get Help!</a></p>
+</div>

@@ -1,0 +1,25 @@
+<p>When you accept a guest to the room they will be shown these joining instructions.</p>
+<p>These should include details such as the link to the event or any dial in instructions.</p>
+<p>To format the text you can use <a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noopener noreferrer'>Markdown</a></p>
+
+<Textarea {{did-insert this.validateText}} local-class='grant-text-input' @value={{this.grantText}} rows='4' placeholder='Joining instructions' {{auto-focus}}/>
+{{#if (gt this.grantText.length 5000)}}
+    <div local-class='length-warning'>
+        {{this.grantText.length}} / 10000
+    </div>
+{{/if}}
+
+<br>
+<p>This is a preview of how the guest will see your instructions:</p>
+<div local-class='rendered-instructions'>
+    <MarkdownToHtml @markdown={{this.grantText}}/>
+</div>
+
+
+<LinkTo @route='claim.admin.index'><button type='button' disabled={{not this.grantTextIsValid}}>Set Text</button></LinkTo>
+
+<p>
+    Or instead of joining instructions you can
+    <LinkTo @route='claim.grant.link'>direct them to a link instead</LinkTo>
+</p>
+

@@ -1,0 +1,24 @@
+.share {
+    display: flex;
+    flex-wrap: wrap;
+
+    p {
+        margin-right: 1rem;
+    }
+}
+
+.share-link {
+    padding: 1rem;
+    background-color: black;
+
+    a {
+        color: white;
+        background-color: unset;
+    }
+}
+
+.title-and-edit {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

@@ -1,0 +1,16 @@
+<h1>Room Claimed</h1>
+
+{{#if (eq this.claim.adminMode 'EMAIL')}}
+    <p>An email was sent to {{this.claim.adminEmail}} with the link to administer your room.</p>
+    <p>Please check your spam or junk folders if you do not see it in your inbox.</p>
+{{else}}
+    <p>This is the admin link for your room. Please save it to your bookmarks, it cannot be shown to you again.</p>
+    <div local-class='share-link'>
+        <a href={{this.claim.adminLink}} target='_blank' rel='noopener noreferrer'>{{this.claim.adminLink}}</a>
+    </div>
+{{/if}}
+
+<LinkTo @route='application'>Start over</LinkTo>
+<div local-class='powered-by-wrap'>
+    <PoweredByLineupNinja/>
+</div>

@@ -1,0 +1,25 @@
+
+.name-input {
+    display: flex;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.message-content {
+    font-size: larger;
+    white-space: pre;
+}
+
+.privacy-policy {
+    font-size: smaller;
+}
+
+.cookie-notice {
+    font-size: smaller;
+    max-width: 20rem;
+}
+
+.promo {
+    margin-top: 3rem;
+    color: var(--text-main);
+}

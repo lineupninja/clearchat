@@ -1,0 +1,84 @@
+<div {{did-insert this.didInsert}}>
+    <button type='button' {{on 'click' this.manageRoom}}>Manage Room</button>
+    {{#if this.showManageRoomModal}}
+        <ModalDialog
+            @translucentOverlay={{true}}
+            @containerClass='edit-room-modal-container'
+        >
+            <button type='button' local-class='done-button' {{on 'click' this.cancel}}>Done</button>
+            <h1>Manage Room</h1>
+            <hr>
+            <h2>Approved Guests</h2>
+            <p>When you approve a guest they can be shown either a link or joining instructions.</p>
+            <div local-class='grant-config'>
+                <div local-class='grant-modes'>
+                    <RadioButton
+                        @value='LINK'
+                        @groupValue={{this.grantMode}}
+                        @changed={{fn this.editGrantMode}}>
+                        <span>Link</span>
+                    </RadioButton>
+
+                    <RadioButton
+                        @value='TEXT'
+                        @groupValue={{this.grantMode}}
+                        @changed={{fn this.editGrantMode}}>
+                        <span>Joining Instructions</span>
+                    </RadioButton>
+                </div>
+                {{#if (eq this.grantMode 'TEXT')}}
+                    <Textarea @value={{this.grantText}} rows='4' placeholder='Joining instructions' {{auto-focus}}/>
+                {{else}}
+                    <Input {{auto-focus}} @value={{this.grantText}} placeholder='https://example.com'/>
+
+                {{/if}}
+                {{#if (gt this.grantText.length 5000)}}
+                    <div local-class='length-warning'>
+                        {{this.grantText.length}} / 10000
+                    </div>
+                {{/if}}
+
+                <div local-class='modal-buttons'>
+                    <button type='button' class='success' {{on 'click' this.saveChanges}} disabled={{not this.grantTextIsValid}}>Save</button>
+                    <button type='button' {{on 'click' this.cancel}}>Cancel</button>
+                </div>
+            </div>
+            <hr>
+            <h2>Clear Room</h2>
+            <p>To use the room for another event clear the guests.</p>
+            <button type='button' class='danger' {{on 'click' this.clearRoom}}>Clear Room</button>
+            <hr>
+            <h2>Delete Room</h2>
+            <p>Deleting the room removes all data associated with the room. The room will be available for anyone to claim.
+                All data is erased, this action cannot be undone.
+            </p>
+            <button type='button' class='danger' {{on 'click' this.deleteRoom}}>Delete Room</button>
+        </ModalDialog>
+    {{/if}}
+    {{#if this.showConfirmModal}}
+        <ModalDialog
+            @translucentOverlay={{true}}
+            @containerClass='edit-room-modal-container'
+        >
+            {{#if (eq this.confirming 'DELETE')}}
+                <h1>Delete Room?</h1>
+                <p>Please confirm you wish to delete the room. This cannot be undone.</p>
+            {{else}}
+                <h1>Clear Room?</h1>
+                <p>Please confirm you wish to clear the room. Guests will need to request entry again.</p>
+            {{/if}}
+            <div local-class='modal-buttons'>
+                <button type='button' class='danger' {{on 'click' this.confirm}}>Confirm</button>
+                <button type='button' {{on 'click' this.cancel}}>Cancel</button>
+            </div>
+        </ModalDialog>
+    {{/if}}
+    {{#if this.showPleaseWaitModal}}
+        <ModalDialog
+            @translucentOverlay={{true}}
+            @containerClass='edit-room-modal-container'
+        >
+            <p>Please Wait</p>
+        </ModalDialog>
+    {{/if}}
+</div>

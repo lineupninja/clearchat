@@ -1,0 +1,16 @@
+<BrowserTest>
+    {{#if this.userHasBeenIdle}}
+        <div class='user-idle-wrapper'>
+            <div class='user-idle'>
+                <p>Are you still there?</p>
+                <button type='button' {{on 'click' this.reloadPage}}>Yes!</button>
+            </div>
+        </div>
+    {{else}}
+        {{#if this.model.available}}
+            <p>This room has not been claimed. To claim a room <a {{on 'click' this.goToBrochure}}>click here</a></p>
+        {{else}}
+            <Connection @adminToken={{this.admin}}/>
+        {{/if}}
+    {{/if}}
+</BrowserTest>

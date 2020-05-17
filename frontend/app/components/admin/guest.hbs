@@ -1,0 +1,37 @@
+<div local-class='guest' {{did-insert this.updateTime}}>
+    <p>
+        <span local-class='guest-name'>{{@guest.name}}</span><br>
+        {{this.requestedTime}}
+    </p>
+    <div local-class='state-buttons'>
+        {{#unless (eq @guest.state 'GRANTED')}}
+            <button type='button' class='success' {{on 'click' (fn this.setGuestState @guest 'GRANTED')}}>Approve</button>
+        {{/unless}}
+        {{#unless (eq @guest.state 'DENIED')}}
+            <button type='button' class='danger' {{on 'click' (fn this.setGuestState @guest 'DENIED')}}>Block</button>
+        {{/unless}}
+        {{#unless (eq @guest.state 'PENDING')}}
+            <button type='button' {{on 'click' (fn this.setGuestState @guest 'PENDING')}}>Waiting Room</button>
+        {{/unless}}
+
+    </div>
+    <details>
+        {{#if (eq @guest.state 'PENDING')}}
+            <summary local-class='summary-container'>
+                <span local-class={{if this.hasUnreadMessages 'summary-pending had-unread' 'summary-pending'}}>
+                    <span>Chat With Guest</span>
+                    {{#if this.hasMessages}}
+                        <Icon::CommentLines/>
+                    {{/if}}
+                </span>
+            </summary>
+            <Messages @userId={{@guest.userId}} @allowNewMessages={{true}} @getMessagesFromBackend={{false}}/>
+        {{else}}
+            <summary>View Chat History</summary>
+            <Messages @userId={{@guest.userId}} @allowNewMessages={{false}} @getMessagesFromBackend={{false}}/>
+            <p>To send new messages</p>
+            <button type='button' {{on 'click' (fn this.setGuestState @guest 'PENDING')}}>Return To Waiting Room</button>
+
+        {{/if}}
+    </details>
+</div>

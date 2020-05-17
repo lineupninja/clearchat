@@ -1,0 +1,25 @@
+<div 
+    {{did-insert (perform this.backend.manageConnection true @adminToken)}}
+    {{did-insert (perform this.heartbeat)}}
+    {{will-destroy (perform this.backend.manageConnection false @adminToken)}}
+>
+    {{#if (eq this.backend.connectionState 'CONNECTED')}}
+        <div local-class={{if (eq this.backend.adminClass 'user') 'center-content'}}>
+            <div local-class='{{this.backend.adminClass}}'>
+                {{#if this.backend.hasInvalidAdminToken}}
+                    <p>Your admin link is not valid. Sorry about that.</p>
+                {{else if this.backend.isAdmin}}
+                    <Admin::Room/>
+                {{else}}
+                    <User::Guest/>
+                {{/if}}
+            </div>
+        </div>
+    {{else if this.backend.connectionError}}
+        {{this.backend.connectionError}}
+    {{else if (eq this.backend.connectionState 'MISSING_HEARTBEAT')}}
+        <p>Trying to reconnect...</p>
+    {{else}}
+        Please wait...
+    {{/if}}
+</div>

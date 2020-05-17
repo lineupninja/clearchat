@@ -1,0 +1,26 @@
+
+<div local-class='claim'>
+    <div local-class='domain'>
+        <div local-class='domain-main'>
+            <Input id='room' {{auto-focus}} @value={{this.roomId}} @key-up={{perform this.inputKeyUp}}/>
+            <span>.{{this.baseDomain}}</span>
+        </div>
+        {{#if this.showCharacterWarning}}
+            <div local-class='character-warning'>
+                letters, numbers and '-' only
+            </div>
+        {{/if}}
+    </div>
+
+    <button disabled={{not-eq this.available 'YES'}} {{on 'click' this.claimRoom}} type='button'>
+        {{#if (eq this.roomId '')}}
+            Claim your free room
+        {{else if (eq this.available 'NO')}}
+            Not available.
+        {{else if (eq this.available 'VALIDATING')}}
+            Checking...
+        {{else}}
+            Claim '{{this.validatedRoomId}}'
+        {{/if}}
+    </button>
+</div>

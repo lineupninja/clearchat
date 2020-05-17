@@ -1,0 +1,16 @@
+<div local-class='message-wrapper'>
+    <div local-class='message-main'>
+        <Input {{auto-focus}} placeholder='Type a message...' rows='4' @value={{this.messageContent}} @keyDown={{this.inputKeyPressed}}/>
+        {{#if (not-eq this.messageContent '')}}
+            <button type='button' {{on 'click' this.sendMessage }}>Send</button>
+        {{else}}
+            <button type='button' disabled='true'>Send</button>
+        {{/if}}
+    </div>
+    {{#if (gt this.messageContent.length 140)}}
+        <div local-class='length-warning'>
+            {{this.messageContent.length}} / 280
+        </div>
+    {{/if}}
+
+</div>

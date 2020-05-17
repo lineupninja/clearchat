@@ -1,0 +1,22 @@
+.guests {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h2 {
+    padding: 0.25rem;
+    padding-left: 1rem;
+    color: #fff;
+}
+
+.pending-heading {
+    background-color: #1f8dd6;
+}
+
+.granted-heading {
+    background-color: #28a745;
+}
+
+.denied-heading {
+    background-color: #dc3545;
+}

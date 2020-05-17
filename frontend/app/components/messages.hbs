@@ -1,0 +1,18 @@
+<div {{did-insert this.getMessages}}>
+
+    {{#if @userId}}
+        {{#each (sort-by 'time' (get this.backend.roomMessages @userId)) as |message|}}
+            <Messages::Message @message={{message}}/>
+        {{/each}}
+    {{else}}
+
+    {{#each (sort-by 'time' this.backend.messages) as |message|}}
+        <Messages::Message @message={{message}}/>
+    {{/each}}
+
+    {{/if}}
+    {{#if @allowNewMessages}}
+        <Messages::Send @userId={{@userId}} />
+    {{/if}}
+
+</div>

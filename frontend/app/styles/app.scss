@@ -1,0 +1,53 @@
+// https://github.com/kognise/water.css
+@import 'water';
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
+body {
+    // override water.css
+    max-width: unset;
+}
+
+button {
+    color: #fff;
+    background-color: #1f8dd6;
+}
+
+:global(.success) {
+    background-color: #28a745;
+}
+
+:global(.danger) {
+    background-color: #dc3545;
+}
+
+/**
+    Used in edit-room.hbs
+*/
+:global(.edit-room-modal-container) {
+    width: 30rem;
+    max-width: 90vw;
+    background: var(--background-body);
+
+    p {
+        margin-left: 1rem;
+    }
+
+    h2 {
+        padding-left: 0;
+    }
+}
+
+:global(.user-idle-wrapper) {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+:global(.user-idle) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

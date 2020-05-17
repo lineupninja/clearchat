@@ -1,0 +1,25 @@
+.thumbnails-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnails-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.figure {
+    display: inline-block;
+
+    img {
+        max-width: 300px;
+    }
+
+    figcaption {
+        text-align: center;
+        font-size: smaller;
+        margin-top: 0.25rem;
+    }
+}

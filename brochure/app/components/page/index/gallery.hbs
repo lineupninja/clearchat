@@ -1,0 +1,14 @@
+<PhotoSwipe @items={{this.items}} history={{false}} as |photoswipe|>
+    <div local-class='thumbnails-wrap'>
+        {{#each this.rows as |rowItems|}}
+            <div local-class='thumbnails-row'>
+                {{#each rowItems as |item|}}
+                    <figure local-class='figure'>
+                        <img src={{item.src}} local-class='thumbnail' {{action photoswipe.actions.open (hash index=item.index)}} />
+                        <figcaption>{{item.title}}</figcaption>
+                    </figure>
+                {{/each}}
+            </div>
+        {{/each}}
+    </div>
+</PhotoSwipe>

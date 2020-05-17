@@ -1,0 +1,22 @@
+<div {{did-insert this.getRoomGuests}}>
+    <h2 local-class='pending-heading'>Guests In Waiting Room ({{get (filter-by 'state' 'PENDING' this.backend.roomGuests) 'length'}})</h2>
+    <div local-class='guests'>
+        {{#each (sort-by 'name' (filter-by 'state' 'PENDING' this.backend.roomGuests)) as |guest|}}
+            <Admin::Guest @guest={{guest}}/>
+        {{/each}}
+    </div>
+    <h2 local-class='granted-heading'>Approved Guests ({{get (filter-by 'state' 'GRANTED' this.backend.roomGuests) 'length'}})</h2>
+    <div local-class='guests'>
+        {{#each (sort-by 'name' (filter-by 'state' 'GRANTED' this.backend.roomGuests)) as |guest|}}
+            <Admin::Guest @guest={{guest}}/>
+        {{/each}}
+    </div>
+
+    <h2 local-class='denied-heading'>Blocked Guests ({{get (filter-by 'state' 'DENIED' this.backend.roomGuests) 'length'}})</h2>
+        <div local-class='guests'>
+        {{#each (sort-by 'name' (filter-by 'state' 'DENIED' this.backend.roomGuests)) as |guest|}}
+            <Admin::Guest @guest={{guest}}/>
+        {{/each}}
+    </div>
+
+</div>

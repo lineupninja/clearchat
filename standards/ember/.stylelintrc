@@ -1,0 +1,13 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": 4,
+    "max-empty-lines": 2,
+    "at-rule-no-unknown": [true, {
+      ignoreAtRules: ['include', 'mixin', 'function', 'each', 'return', 'if', 'else']
+    }],
+    "value-list-max-empty-lines": 2,
+    "selector-pseudo-class-no-unknown": null
+  },
+  "ignoreFiles": ["**/_water.scss"]
+}

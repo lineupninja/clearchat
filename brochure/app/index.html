@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ClearChat</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" as="font">
+
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    {{content-for "head"}}
+
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/clearchat-brochure.css">
+
+    {{content-for "head-footer"}}
+  </head>
+    <body>
+      {{content-for "body"}}
+
+      <script src="{{rootURL}}assets/vendor.js"></script>
+      <script src="{{rootURL}}assets/clearchat-brochure.js"></script>
+
+      {{content-for "body-footer"}}
+    </body>
+</html>
