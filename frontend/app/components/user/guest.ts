@@ -1,10 +1,11 @@
 import Component from '@glimmer/component';
 
 import { inject as service } from '@ember/service';
-import Backend, { Guest } from 'clearchat-frontend/services/backend';
+import Backend from 'clearchat-frontend/services/backend';
 import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
+import { Guest } from 'clearchat-frontend/models/guest';
 
 interface MessagesArgs { }
 

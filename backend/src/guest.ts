@@ -115,7 +115,7 @@ export async function createGuest(user: User, name: string): Promise<Guest> {
  * Sets a guests state and returns the updated guest
  */
 
-export async function setGuestState(roomId: string, userId: string, state: GuestState): Promise<Guest> {
+export async function setGuestState(roomId: string, userId: string, state: GuestState, messageReadByAdminTime: number | undefined): Promise<Guest> {
     const guest = await getGuestByRoomIdUserId(roomId, userId);
     if (!guest) {
         throw Error(`No guest found for ${roomId} / ${userId}`);
@@ -135,6 +135,9 @@ export async function setGuestState(roomId: string, userId: string, state: Guest
         guest.grant = room.grant;
     } else {
         delete guest.grant;
+    }
+    if (messageReadByAdminTime) {
+        guest.messageReadByAdminTime = messageReadByAdminTime;
     }
     const putParams: DynamoDB.DocumentClient.PutItemInput = {
         TableName: process.env.GUESTS_TABLE!,

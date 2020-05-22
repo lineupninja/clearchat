@@ -1,4 +1,4 @@
-<div local-class='guest' {{did-insert this.updateTime}}>
+<div local-class='guest' {{did-insert this.updateTime}} {{will-destroy this.stopReadingMessages}}>
     <p>
         <span local-class='guest-name'>{{@guest.name}}</span><br>
         {{this.requestedTime}}
@@ -15,7 +15,7 @@
         {{/unless}}
 
     </div>
-    <details>
+    <details {{on 'toggle' this.detailsToggled}}>
         {{#if (eq @guest.state 'PENDING')}}
             <summary local-class='summary-container'>
                 <span local-class={{if this.hasUnreadMessages 'summary-pending had-unread' 'summary-pending'}}>

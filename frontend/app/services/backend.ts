@@ -10,6 +10,7 @@ import { enqueueTask, task } from 'ember-concurrency-decorators';
 import Auth from '@aws-amplify/auth';
 import Amplify, { ICredentials } from '@aws-amplify/core';
 import Websockets, { EmberWebsocket } from 'ember-websockets/services/sockets';
+import { Guest, GuestConfig, GuestState } from 'clearchat-frontend/models/guest';
 
 export type Message = {
 
@@ -21,22 +22,6 @@ export type Message = {
     direction: 'IN' | 'OUT';
 
 };
-
-export type GuestState = 'PENDING' | 'GRANTED' | 'DENIED';
-
-
-export type Guest = {
-    roomId: string;
-    userId: string;
-    name: string;
-    state: GuestState;
-    createdTime: number;
-    requestedAccessTime: number;
-    messageSentByUserTime?: number;
-    messageReadByAdminTime?: number;
-    grant?: RoomGrant;
-};
-
 
 export type Room = {
     roomId: string;
@@ -93,7 +78,7 @@ type GetGuestRequest = {
 
 type GetGuestResponse = {
     response: 'GET_GUEST';
-    guest: Guest | null;
+    guest: GuestConfig | null;
 };
 
 type GetRoomDetailsRequest = {
@@ -128,6 +113,7 @@ type SetGuestStateRequest = {
     request: 'SET_GUEST_STATE';
     state: GuestState;
     userId: string;
+    messageReadByAdminTime?: number;
 };
 
 type DeleteRoomRequest = {
@@ -471,25 +457,17 @@ export default class Backend extends Service {
         const { guest } = response;
         if (this.isAdmin && guest) {
             const existingGuest = this.roomGuests.find((g) => g.userId === guest.userId);
-            if (existingGuest) {
-                // Update the existing guest
-                // Maybe figure out a way to use @tracked here?
-                set(existingGuest, 'roomId', guest.roomId);
-                set(existingGuest, 'userId', guest.userId);
-                set(existingGuest, 'name', guest.name);
-                set(existingGuest, 'state', guest.state);
-                set(existingGuest, 'messageSentByUserTime', guest.messageSentByUserTime);
-                set(existingGuest, 'messageReadByAdminTime', guest.messageReadByAdminTime);
-                set(existingGuest, 'grant', guest.grant);
-            } else if (response.guest) {
-                this.roomGuests.pushObject(guest);
-            }
-            if (guest.state === 'PENDING') {
+            if (!existingGuest && guest.state === 'PENDING') {
                 new Audio('sounds/new-guest.mp3').play();
             }
+            this.createOrMergeGuest(guest);
         } else if (!this.isAdmin && (!guest || guest.userId === this.userId)) {
             // Received my own guest record or null
-            this.guest = response.guest;
+            if (response.guest) {
+                this.guest = new Guest(response.guest, this);
+            } else {
+                this.guest = null;
+            }
         } else {
             console.error('Got a guest record that could not be handled');
             console.error(response);
@@ -504,11 +482,12 @@ export default class Backend extends Service {
         this.sendWsMessage(wsMessage);
     }
 
-    setGuestState(guest: Guest, state: GuestState): void {
+    setGuestState(guest: Guest, state: GuestState, messageReadByAdminTime: number | undefined): void {
         const wsMessage: SetGuestStateRequest = {
             request: 'SET_GUEST_STATE',
             state,
             userId: guest.userId,
+            messageReadByAdminTime,
         };
         this.sendWsMessage(wsMessage);
     }
@@ -533,10 +512,9 @@ export default class Backend extends Service {
     }
 
     getRoomGuestsResponse(response: GetRoomGuestsResponse): void {
-        const existingGuestIds = this.roomGuests.map((g) => g.userId);
-        // TODO: Merge updates to guests
-        const guestsToAdd = response.guests.filter((g) => !existingGuestIds.includes(g.userId));
-        this.roomGuests.pushObjects(guestsToAdd);
+        for (const guest of response.guests) {
+            this.createOrMergeGuest(guest);
+        }
     }
 
     setRoomGrant(grant: RoomGrant): void {
@@ -621,6 +599,27 @@ export default class Backend extends Service {
             this.heartbeatConnectionId = response.connectionId;
         }
         this.heartbeatReceivedAtTime = new Date().getTime();
+    }
+
+    /**
+     * Takes a Guest object from the backend and creates a Guest or updates an existing one
+     */
+
+    createOrMergeGuest(config: GuestConfig) {
+        const existingGuest = this.roomGuests.find((g) => g.userId === config.userId);
+        if (existingGuest) {
+            console.log('updating existing guest');
+            // Update the existing guest
+            set(existingGuest, 'roomId', config.roomId);
+            set(existingGuest, 'userId', config.userId);
+            set(existingGuest, 'name', config.name);
+            set(existingGuest, 'state', config.state);
+            set(existingGuest, 'messageSentByUserTime', config.messageSentByUserTime);
+            set(existingGuest, 'messageReadByAdminTime', config.messageReadByAdminTime);
+            set(existingGuest, 'grant', config.grant);
+        } else {
+            this.roomGuests.pushObject(new Guest(config, this));
+        }
     }
 }
 

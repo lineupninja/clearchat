@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { Guest } from 'clearchat-frontend/services/backend';
+import { Guest } from 'clearchat-frontend/models/guest';
 
 interface UserGrantedLinkArgs {
     guest: Guest;

@@ -66,6 +66,7 @@ type SetGuestStateRequest = {
     request: 'SET_GUEST_STATE';
     state: GuestState;
     userId: string;
+    messageReadByAdminTime?: number;
 };
 
 type DeleteRoomRequest = {
@@ -538,7 +539,7 @@ export async function wsMessage(event: APIGatewayEvent, context: unknown): Promi
             case 'SET_GUEST_STATE':
                 if (user.isAdmin) {
                     const setGuestStateRequest = request as SetGuestStateRequest;
-                    const guest = await setGuestState(user.roomId, setGuestStateRequest.userId, setGuestStateRequest.state);
+                    const guest = await setGuestState(user.roomId, setGuestStateRequest.userId, setGuestStateRequest.state, setGuestStateRequest.messageReadByAdminTime);
                     const response: GetGuestResponse = {
                         response: 'GET_GUEST',
                         guest,

@@ -20,22 +20,32 @@
 }
 
 .summary-container {
-    display: flex;
-    align-items: center;
-
     svg {
+        float: right;
         height: 1.5rem;
     }
 
     .had-unread {
         svg {
-            color: #1f8dd6;
+            animation: pulse 2s infinite;
         }
     }
 }
 
 .summary-pending {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
+}
+
+@keyframes pulse {
+    0% {
+        color: #fff;
+    }
+
+    70% {
+        color: #dc3545;
+    }
+
+    100% {
+        color: #fff;
+    }
 }

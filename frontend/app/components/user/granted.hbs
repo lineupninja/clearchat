@@ -4,4 +4,8 @@
 {{else}}
     <User::Granted::Text @guest={{@guest}}/>
 {{/if}}
+<details>
+    <summary>Chat History</summary>
+    <Messages  @allowNewMessages={{false}} @getMessagesFromBackend={{true}}/>
+</details>
 
