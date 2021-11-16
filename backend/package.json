@@ -28,7 +28,7 @@
   "dependencies": {
     "@sendgrid/mail": "7.0.1",
     "aws-lambda": "1.0.5",
-    "aws-sdk": "2.656.0",
+    "aws-sdk": "2.814.0",
     "uuid": "7.0.3"
   }
 }
