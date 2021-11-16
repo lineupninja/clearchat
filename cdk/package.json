@@ -41,7 +41,7 @@
     "@aws-cdk/core": "1.33.0",
     "@types/aws-lambda": "8.10.48",
     "aws-lambda": "1.0.5",
-    "aws-sdk": "2.656.0",
+    "aws-sdk": "2.814.0",
     "source-map-support": "^0.5.16"
   }
 }
